@@ -74,7 +74,7 @@ fi
 # Ensure that the app-root/runtime/repo/php PHP directory points
 # to a valid Drupal instance directory
 #
-ln -sfn ../../data/downloads/current ${OPENSHIFT_REPO_DIR}_site
+ln -sfn ../../data/drupal ${OPENSHIFT_REPO_DIR}php
 if [ ! -d "${OPENSHIFT_REPO_DIR}_site" ]
 then  
   echo "ERROR: Unable to link the PHP directory, as the current Drupal instance is not a valid directory."
