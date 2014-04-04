@@ -9,14 +9,16 @@ set -e
 #
 # The PHP dir most be controlled by Drupal content
 #
-if [ -e "${OPENSHIFT_REPO_DIR}php" -a ! -h "${OPENSHIFT_REPO_DIR}php" ]
+if [ -e "${OPENSHIFT_REPO_DIR}_site" -a ! -h "${OPENSHIFT_REPO_DIR}_site" ]
 then
-  echo "ERROR: The 'php' directory in your Git repo was found so we are not going to build a new drupal."
+  echo "ERROR: The '_site' directory in your Git repo was found so we are not going to build a new drupal."
   exit 5
 fi
 
 DRUPAL_DIR=${OPENSHIFT_DATA_DIR}drupal
 DRUPAL_SITE_DIR=${OPENSHIFT_DATA_DIR}sites
+
+DRUPAL_MAKE_FILE=${OPENSHIFT_REPO_DIR}site.make
 
 echo
 
@@ -24,7 +26,7 @@ echo
 cat >$OPENSHIFT_HOMEDIR/.drush/drushrc.php <<EOF
 <?php
   \$options['uri'] = \$_ENV['OPENSHIFT_APP_DNS'];
-  \$options['root'] = \$_ENV['OPENSHIFT_REPO_DIR'].'php';
+  \$options['root'] = \$_ENV['OPENSHIFT_REPO_DIR'].'_site';
 EOF
 
 #
@@ -34,37 +36,26 @@ if [ ! -d "${OPENSHIFT_DATA_DIR}downloads/current" ]
 then
   mkdir -p ${OPENSHIFT_TMP_DIR}drupal
 
-  echo "Download and install the latest stable version of Drupal"
+  echo "Make Drupal from the make file"
   echo
 
-  mkdir -p ${OPENSHIFT_DATA_DIR}downloads
-  if ! drush dl drupal --destination=${OPENSHIFT_DATA_DIR}downloads --yes
+  if ! drush make -v DRUPAL_MAKE_FILE DRUPAL_DIR
   then
     echo "ERROR: Unable download and install Drupal."
     exit 7
   fi
 
   #
-  # Link the /current symlink to the latest Drupal instance
-  #
-  rm -f ${OPENSHIFT_DATA_DIR}downloads/current
-  LATEST=$(ls -1t ${OPENSHIFT_DATA_DIR}downloads | head -1)
-  export DRUPAL_INSTALL_DIR="${OPENSHIFT_DATA_DIR}downloads/${LATEST}"
-  ln -s ${LATEST} ${OPENSHIFT_DATA_DIR}downloads/current
-
-  mv $DRUPAL_INSTALL_DIR/sites $DRUPAL_INSTALL_DIR/sites.original
-
-  #
   # Ensure there is a default health check
   #
-  cp ${OPENSHIFT_REPO_DIR}.openshift/health_check.php ${DRUPAL_INSTALL_DIR}
+  cp ${OPENSHIFT_REPO_DIR}.openshift/health_check.php ${DRUPAL_DIR}
 
-  patch ${DRUPAL_INSTALL_DIR}/.htaccess < ${OPENSHIFT_REPO_DIR}.openshift/.htaccess.patch
+  patch ${DRUPAL_DIR}/.htaccess < ${OPENSHIFT_REPO_DIR}.openshift/.htaccess.patch
 
-  echo "Drupal installed to $DRUPAL_INSTALL_DIR"
+  echo "Drupal installed to $DRUPAL_DIR"
 else
-  DRUPAL_INSTALL_DIR=$(readlink -f ${OPENSHIFT_DATA_DIR}downloads/current)
-  echo "Drupal is already installed at $DRUPAL_INSTALL_DIR"
+  DRUPAL_DIR=$(readlink -f ${OPENSHIFT_DATA_DIR}downloads/current)
+  echo "Drupal is already installed at $DRUPAL_DIR"
 fi
 
 echo
@@ -75,16 +66,16 @@ echo
 #/
 if [ ! -d "$DRUPAL_SITE_DIR" ]
 then
-  cp -r $DRUPAL_INSTALL_DIR/sites.original $DRUPAL_SITE_DIR
-  ln -sfn ../../sites $DRUPAL_INSTALL_DIR/sites
+  cp -r $DRUPAL_DIR/sites.original $DRUPAL_SITE_DIR
+  ln -sfn ../../sites $DRUPAL_DIR/sites
 fi
 
 #
 # Ensure that the app-root/runtime/repo/php PHP directory points
 # to a valid Drupal instance directory
 #
-ln -sfn ../../data/downloads/current ${OPENSHIFT_REPO_DIR}php
-if [ ! -d "${OPENSHIFT_REPO_DIR}php" ]
+ln -sfn ../../data/downloads/current ${OPENSHIFT_REPO_DIR}_site
+if [ ! -d "${OPENSHIFT_REPO_DIR}_site" ]
 then  
   echo "ERROR: Unable to link the PHP directory, as the current Drupal instance is not a valid directory."
   exit 8
