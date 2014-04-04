@@ -32,9 +32,9 @@ EOF
 #
 # If there is no current download of Drupal, create one.
 #
-if [ ! -d "${OPENSHIFT_DATA_DIR}downloads/current" ]
+if [ ! -d "${DRUPAL_DIR}" ]
 then
-  mkdir -p ${OPENSHIFT_TMP_DIR}drupal
+  # mkdir -p ${OPENSHIFT_TMP_DIR}drupal
 
   echo "Make Drupal from the make file"
   echo
