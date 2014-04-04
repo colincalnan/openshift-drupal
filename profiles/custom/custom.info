@@ -1,0 +1,175 @@
+; Packaging information for psac
+name = "Custom Openshift Profile"
+description = ""
+core = "7.x"
+; ----------
+; Dependencies
+; ----------
+; Administration
+dependencies[] = admin_menu
+dependencies[] = module_filter
+
+; Webform NEEDS TO GO BEFORE BEAN
+dependencies[] = webform
+dependencies[] = webform_accordion
+
+; CCK
+dependencies[] = cck
+dependencies[] = content_migrate
+dependencies[] = email
+; Chaos tool suite
+dependencies[] = ctools
+dependencies[] = migrate_d2d
+dependencies[] = page_manager
+dependencies[] = page_title
+dependencies[] = views_content
+; Context
+dependencies[] = context
+dependencies[] = context_ui
+; Core
+dependencies[] = aggregator
+dependencies[] = block
+dependencies[] = comment
+dependencies[] = contextual
+dependencies[] = dblog
+dependencies[] = field
+dependencies[] = field_sql_storage
+dependencies[] = field_ui
+dependencies[] = file
+dependencies[] = filter
+dependencies[] = help
+dependencies[] = image
+dependencies[] = list
+dependencies[] = locale
+dependencies[] = menu
+dependencies[] = node
+dependencies[] = number
+dependencies[] = options
+dependencies[] = path
+dependencies[] = php
+dependencies[] = poll
+dependencies[] = search
+dependencies[] = statistics
+dependencies[] = syslog
+dependencies[] = system
+dependencies[] = taxonomy
+dependencies[] = text
+dependencies[] = translation
+dependencies[] = update
+dependencies[] = user
+; Custom breadcrumbs
+dependencies[] = custom_breadcrumbs
+dependencies[] = custom_breadcrumbs_identifiers
+dependencies[] = custom_breadcrumbs_panels
+dependencies[] = custom_breadcrumbs_paths
+dependencies[] = custom_breadcrumbs_taxonomy
+dependencies[] = custom_breadcrumbs_views
+; Date/Time
+dependencies[] = date
+dependencies[] = date_all_day
+dependencies[] = date_api
+dependencies[] = date_context
+dependencies[] = date_popup
+dependencies[] = date_repeat
+dependencies[] = date_repeat_field
+dependencies[] = date_tools
+dependencies[] = date_views
+; Display Suite
+dependencies[] = ds
+dependencies[] = ds_devel
+dependencies[] = ds_extras
+dependencies[] = ds_format
+dependencies[] = ds_forms
+dependencies[] = ds_ui
+; Fields
+dependencies[] = entityreference
+dependencies[] = field_collection
+dependencies[] = link
+dependencies[] = node_reference
+dependencies[] = references
+dependencies[] = select_or_other
+dependencies[] = title
+dependencies[] = user_reference
+; Media
+dependencies[] = imce
+; Multilingual - Entity Translation
+dependencies[] = entity_translation
+dependencies[] = entity_translation_i18n_menu
+dependencies[] = entity_translation_upgrade
+; Multilingual - Internationalization
+dependencies[] = i18n
+dependencies[] = i18n_block
+dependencies[] = i18n_field
+dependencies[] = i18n_menu
+dependencies[] = i18n_node
+dependencies[] = i18n_path
+dependencies[] = i18n_redirect
+dependencies[] = i18n_select
+dependencies[] = i18n_string
+dependencies[] = i18n_sync
+dependencies[] = i18n_taxonomy
+dependencies[] = i18n_translation
+dependencies[] = i18n_variable
+; Node export
+dependencies[] = node_export
+; OAuth
+dependencies[] = oauth_common
+; Other
+dependencies[] = backup_migrate
+dependencies[] = entity
+dependencies[] = libraries
+dependencies[] = menu_block
+dependencies[] = menu_block_export
+dependencies[] = menu_breadcrumb
+dependencies[] = menu_clone
+dependencies[] = pathauto
+dependencies[] = quicktabs
+dependencies[] = quicktabs_tabstyles
+dependencies[] = redirect
+dependencies[] = scheduler
+dependencies[] = site_map
+dependencies[] = token
+dependencies[] = transliteration
+dependencies[] = twitter
+dependencies[] = weight
+; Panels
+dependencies[] = panels
+dependencies[] = panels_node
+; Raised Eyebrow Custom Modules
+dependencies[] = re_contextlibraries
+dependencies[] = re_quicktabs_foundation
+; Statistics
+dependencies[] = googleanalytics
+; UUID
+dependencies[] = uuid
+dependencies[] = uuid_path
+; User interface
+dependencies[] = imce_wysiwyg
+dependencies[] = jquery_update
+dependencies[] = wysiwyg
+; Variable
+dependencies[] = variable
+dependencies[] = variable_realm
+dependencies[] = variable_store
+; Views
+dependencies[] = views
+dependencies[] = views_ui
+
+; XML sitemap
+dependencies[] = xmlsitemap
+; oEmbed
+dependencies[] = oembed
+dependencies[] = oembedcore
+
+; Bean
+dependencies[] = bean
+dependencies[] = bean_admin_ui
+dependencies[] = bean_all
+
+; Administration Views
+dependencies[] = views_bulk_operations
+dependencies[] = admin_views
+
+; Features
+dependencies[] = features
+dependencies[] = defaultcontent
