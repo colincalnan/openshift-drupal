@@ -39,7 +39,7 @@ then
   echo "Make Drupal from the make file"
   echo
 
-  if ! drush make DRUPAL_MAKE_FILE DRUPAL_DIR 2>&1
+  if ! drush make ${DRUPAL_MAKE_FILE} ${DRUPAL_DIR} 2>&1
   then
     echo "ERROR: Drush make failed."
     exit 7
