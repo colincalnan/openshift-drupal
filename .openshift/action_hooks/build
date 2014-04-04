@@ -39,9 +39,9 @@ then
   echo "Make Drupal from the make file"
   echo
 
-  if ! drush make -v DRUPAL_MAKE_FILE DRUPAL_DIR
+  if ! drush make DRUPAL_MAKE_FILE DRUPAL_DIR 2>&1
   then
-    echo "ERROR: Unable download and install Drupal."
+    echo "ERROR: Drush make failed."
     exit 7
   fi
 
